@@ -9,15 +9,21 @@
  * @return {boolean} - True if the user input is valid, false otherwise
  */
 function checkIsValidUserInput(userInput) {
-  const isNumber = Number.isFinite(+userInput);
-  const hasFourUniqueDigits = new Set(userInput).size === 4;
-  const notStartWithZero = userInput.split('')[0] !== '0';
-
-  if (isNumber && hasFourUniqueDigits && notStartWithZero) {
-    return true;
+  if (typeof userInput !== 'string') {
+    return false;
   }
 
-  return false;
+  if (!/^[1-9]\d{3}$/.test(userInput)) {
+    return false;
+  }
+
+  const digits = new Set(userInput);
+
+  if (digits.size !== 4) {
+    return false;
+  }
+
+  return true;
 }
 
 module.exports = {
